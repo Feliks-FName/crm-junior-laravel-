@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Deal\DealStoreRequest;
+use App\Http\Requests\Deal\DealUpdateRequest;
 use App\Models\Deal;
 use App\Models\DealStatus;
 use App\Models\User;
@@ -45,25 +46,29 @@ class DealController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Deal $deal)
     {
-        //
+        return view('deal.show', compact('deal'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Deal $deal)
     {
-        //
+        $users = User::all();
+        $statuses = DealStatus::all();
+        return view('deal.edit', compact('deal', 'users', 'statuses'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DealUpdateRequest $request, Deal $deal)
     {
-        //
+        $data = $request->validated();
+        $deal->update($data);
+        return redirect()->route('dashboard');
     }
 
     /**

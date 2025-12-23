@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DealController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,12 +9,15 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/crm', [\App\Http\Controllers\DealController::class, 'index'])->name('dashboard');
+    Route::get('/crm', [DealController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/deal/create', [\App\Http\Controllers\DealController::class, 'create'])->name('deal.create');
-    Route::post('/deal/store', [\App\Http\Controllers\DealController::class, 'store'])->name('deal.store');
+    Route::get('/deal/create', [DealController::class, 'create'])->name('deal.create');
+    Route::post('/deal/store', [DealController::class, 'store'])->name('deal.store');
+    Route::get('/deal/{deal}', [DealController::class, 'show'])->name('deal.show');
+    Route::get('/deal/{deal}/edit', [DealController::class, 'edit'])->name('deal.edit');
+    Route::put('/deal/{deal}', [DealController::class, 'update'])->name('deal.update');
 
 });
 

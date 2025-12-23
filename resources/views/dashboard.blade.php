@@ -19,8 +19,8 @@
                         <div class="mt-2">
                             @foreach($status->deals as $deal)
                                 <div class="bg-white p-2 mb-2 rounded shadow">
-                                    <div>{{ $deal->name }}</div>
-                                    <div class="text-sm text-gray-500">{{ $deal->client->name ?? 'Без клиента' }}</div>
+                                    <a href="{{ route('deal.show', $deal->id) }}" >{{ $deal->name }}</a>
+                                    <div class="text-sm text-gray-500">Клиент: {{ $deal->client->name ?? 'Без клиента' }}</div>
                                 </div>
                             @endforeach
                         </div>
