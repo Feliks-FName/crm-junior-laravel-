@@ -110,7 +110,7 @@
                     <h3 class="text-lg font-semibold mb-4">Действия</h3>
 
                     <div class="space-y-3">
-                        <a href="{{ route('deal.edit', $deal->id) }}"
+                        <a href="{{ route('deals.edit', $deal->id) }}"
                            class="block text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4">
                             Редактировать
                         </a>

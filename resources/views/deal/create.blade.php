@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="post" action="{{ route('deal.store') }}" class="mt-6 space-y-6 max-w-2xl">
+            <form method="post" action="{{ route('deals.store') }}" class="mt-6 space-y-6 max-w-2xl" autocomplete="off">
                 @csrf
                 @method('post')
 
@@ -70,7 +70,7 @@
 
                 <div>
                     <x-input-label :value="__('Телефон*')"/>
-                    <input type="text" name="phone_client" value="{{ old('phone_client') }}"
+                    <input type="tel" name="phone_client" value="{{ old('phone_client') }}"
                            class="w-full rounded-md px-3 py-2 text-sm border {{ $errors->has('phone_client') ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500' }} focus:ring-2 focus:outline-none transition">
 
                     @error('phone_client')

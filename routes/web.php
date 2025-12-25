@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -13,11 +14,26 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/deal/create', [DealController::class, 'create'])->name('deal.create');
-    Route::post('/deal/store', [DealController::class, 'store'])->name('deal.store');
-    Route::get('/deal/{deal}', [DealController::class, 'show'])->name('deal.show');
-    Route::get('/deal/{deal}/edit', [DealController::class, 'edit'])->name('deal.edit');
-    Route::put('/deal/{deal}', [DealController::class, 'update'])->name('deal.update');
+
+    Route::controller(DealController::class)->prefix('deals')->as('deals.')->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{deal}', 'show')->name('show');
+        Route::get('/{deal}/edit', 'edit')->name('edit');
+        Route::put('/{deal}', 'update')->name('update');
+    });
+
+    Route::controller(ClientController::class)->prefix('clients')->as('clients.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{client}', 'show')->name('show');
+        Route::get('/{client}/edit', 'edit')->name('edit');
+        Route::put('/{client}', 'update')->name('update');
+    });
+
+
+
 
 });
 
