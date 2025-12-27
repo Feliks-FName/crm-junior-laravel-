@@ -33,18 +33,5 @@ class DealFactory extends Factory
             'utm_term' => $this->faker->word(),
 
         ];
-
-        return Deal::factory()->count(20)->make()->each(function ($deal) use ($users, $clients, $statuses) {
-                $deal->name = $this->faker->name();
-                $deal->user_id = $users->random()->id;
-                $deal->client_id = $clients->random()->id;
-                $deal->status_id = $statuses->random()->id;
-                $deal->comments = $this->faker->text();
-                $deal->utm_source = $this->faker->countryCode();
-                $deal->utm_medium = $this->faker->countryCode();
-                $deal->utm_campaign = $this->faker->countryCode();
-                $deal->utm_term = $this->faker->countryCode();
-                $deal->save();
-            });
     }
 }

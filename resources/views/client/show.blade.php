@@ -14,7 +14,7 @@
                     <div>
                         <h1 class="text-2xl font-bold">{{ $client->name }}</h1>
                         <p class="text-sm text-gray-500">
-                            Создан {{ $client->created_at->format('d.m.Y') }}
+                            Создан {{ $client->created_at->format('d.m.Y H:i:s') }}
                         </p>
                     </div>
                 </div>

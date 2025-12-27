@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Client\ClientStoreRequest;
+use App\Http\Requests\Client\ClientUpdateRequest;
 use App\Models\Client;
 use App\Models\Deal;
 use App\Models\DealStatus;
@@ -49,17 +50,19 @@ class ClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Client $client)
     {
-        //
+        return view('client.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ClientUpdateRequest $request, Client $client)
     {
-        //
+        $data = $request->validated();
+        $client->update($data);
+        return redirect()->route('clients.show', compact('client'));
     }
 
     /**
