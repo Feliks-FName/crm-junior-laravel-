@@ -12,6 +12,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_SELLER = 'seller';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -48,6 +53,15 @@ class User extends Authenticatable
 
     public function deals()
     {
-      return $this->hasMany(Deal::class, 'user_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Deal::class, 'user_id', 'id')->orderBy('created_at', 'desc');
+    }
+
+    public function roles(): array
+    {
+        return [
+            self::ROLE_ADMIN => 'Администратор',
+            self::ROLE_MANAGER => 'Менеджер',
+            self::ROLE_SELLER => 'Продавец'
+        ];
     }
 }
