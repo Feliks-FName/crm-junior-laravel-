@@ -25,6 +25,9 @@
                         <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">
                             Email
                         </th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600">
+                            Роль
+                        </th>
                         <th class="px-4 py-3 text-right text-sm font-semibold text-gray-600">
                             Действия
                         </th>
@@ -42,13 +45,17 @@
                                 {{ $user->email }}
                             </td>
 
+                            <td class="px-4 py-3 text-gray-600">
+                                {{ $roles[$user->role] }}
+                            </td>
+
                             <td class="px-4 py-3 text-right space-x-2">
-                                <a href="{{ route('clients.show', $user->id) }}"
+                                <a href="{{ route('users.show', $user->id) }}"
                                    class="text-indigo-600 hover:underline text-sm">
                                     Смотреть
                                 </a>
 
-                                <a href="{{ route('clients.edit', $user->id) }}"
+                                <a href="{{ route('users.edit', $user->id) }}"
                                    class="text-gray-600 hover:underline text-sm">
                                     Редактировать
                                 </a>

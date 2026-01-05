@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
+use App\Services\User\UserCreateServices;
 
 class UserController extends Controller
 {
@@ -14,7 +15,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()->orderByDesc('created_at')->paginate(10);
-        return view('user.index', compact('users'));
+        $roles = User::roles();
+        return view('user.index', compact('users', 'roles'));
     }
 
     /**
@@ -22,15 +24,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = User::roles();
+        return view('user.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, UserCreateServices $userCreateServices)
     {
-        //
+        $data = $request->validated();
+        $userCreateServices->create($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -38,7 +44,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user->load('deals');
+        $roles = User::roles();
+        return view('user.show', compact('user', 'roles'));
     }
 
     /**
@@ -46,7 +54,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $roles = User::roles();
+        return view('user.edit', compact('user', 'roles'));
     }
 
     /**
@@ -54,7 +63,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $user->update($data);
+
+        return redirect()->route('users.index');
     }
 
     /**

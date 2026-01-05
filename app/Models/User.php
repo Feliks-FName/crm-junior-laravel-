@@ -25,7 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id'
+        'role'
     ];
 
     /**
@@ -56,7 +56,7 @@ class User extends Authenticatable
         return $this->hasMany(Deal::class, 'user_id', 'id')->orderBy('created_at', 'desc');
     }
 
-    public function roles(): array
+    public static function roles(): array
     {
         return [
             self::ROLE_ADMIN => 'Администратор',
