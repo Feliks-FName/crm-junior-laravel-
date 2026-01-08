@@ -9,18 +9,19 @@ use App\Models\DealStatus;
 use App\Models\User;
 use App\Services\Deal\CreateDealService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DealController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Deal $deal)
     {
         $statuses = DealStatus::all();
         $deals = Deal::with(['client', 'status', 'user'])->get();
 
-        return view('dashboard', compact('statuses', 'deals'));
+        return view('dashboard', compact('statuses', 'deals', 'deal'));
     }
 
     /**
@@ -28,6 +29,8 @@ class DealController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Deal::class);
+
         $users = User::all();
         $statuses = DealStatus::all();
         return view('deal.create', compact('users', 'statuses'));

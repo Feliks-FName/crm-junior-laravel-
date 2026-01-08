@@ -33,7 +33,11 @@
             <div class="grid grid-cols-3 gap-6">
 
                 <!-- Левая колонка -->
-                <div class="col-span-2 bg-white p-6 rounded shadow">
+                @can('update', $deal)
+                    <div class="col-span-2 bg-white p-6 rounded shadow">
+                @else
+                    <div class="col-span-3 bg-white p-6 rounded shadow">
+                @endcan
                     <h3 class="text-lg font-semibold mb-4">Информация о сделке</h3>
 
                     <div class="space-y-3">
@@ -104,8 +108,8 @@
                 </div>
 
 
-
                 <!-- Правая колонка -->
+                @can('update', $deal)
                 <div class="bg-white p-6 rounded shadow">
                     <h3 class="text-lg font-semibold mb-4">Действия</h3>
 
@@ -129,7 +133,7 @@
                         </form>
                     </div>
                 </div>
-
+                @endcan
             </div>
         </div>
     </div>

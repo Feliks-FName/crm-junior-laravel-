@@ -6,17 +6,19 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Services\User\UserCreateServices;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
+        Gate::authorize('viewAny', $user);
         $users = User::query()->orderByDesc('created_at')->paginate(10);
         $roles = User::roles();
-        return view('user.index', compact('users', 'roles'));
+        return view('user.index', compact('users', 'roles', 'user'));
     }
 
     /**

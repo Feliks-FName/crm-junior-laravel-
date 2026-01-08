@@ -64,4 +64,16 @@ class User extends Authenticatable
             self::ROLE_SELLER => 'Продавец'
         ];
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role === self::ROLE_MANAGER;
+    }
+
+
 }

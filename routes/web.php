@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::middleware('auth')->group(function () {
     Route::get('/crm', [DealController::class, 'index'])->name('dashboard');
 });
 
+
 Route::middleware('auth')->group(function () {
 
     Route::controller(DealController::class)->prefix('deals')->as('deals.')->group(function () {
+        Route::get('/crm', 'index')->name('dashboard');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{deal}', 'show')->name('show');

@@ -22,9 +22,13 @@
 
             <!-- Основной контент -->
             <div class="grid grid-cols-3 gap-6">
+                @can('update', $client)
+                    <div class="col-span-2 bg-white p-6 rounded shadow">
+                @else
+                    <div class="col-span-3 bg-white p-6 rounded shadow">
+                @endcan
 
-                <!-- Левая колонка -->
-                <div class="col-span-2 bg-white p-6 rounded shadow">
+                    <!-- Левая колонка -->
                     <h3 class="text-lg font-semibold mb-4">Информация о контакте</h3>
 
                     <div class="space-y-3">
@@ -61,7 +65,9 @@
                             <div class="font-medium">
                                 <div class="flex">
                                     @foreach($client->deals as $deal)
-                                        <a href=" {{ route('deals.show', $deal->id) }}" class="underline">{{ $deal->name }}</a> <span>в статусе {{ $deal->status->code }}</span>
+                                        <a href=" {{ route('deals.show', $deal->id) }}"
+                                           class="underline">{{ $deal->name }}</a>
+                                        <span>в статусе {{ $deal->status->code }}</span>
                                     @endforeach
                                 </div>
                             </div>
@@ -70,30 +76,31 @@
                 </div>
 
                 <!-- Правая колонка -->
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="text-lg font-semibold mb-4">Действия</h3>
+                @can('update', $client)
+                    <div class="bg-white p-6 rounded shadow">
+                        <h3 class="text-lg font-semibold mb-4">Действия</h3>
 
-                    <div class="space-y-3">
-                        <a href="{{ route('clients.edit', $client->id) }}"
-                           class="block text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4">
-                            Редактировать
-                        </a>
+                        <div class="space-y-3">
+                            <a href="{{ route('clients.edit', $client->id) }}"
+                               class="block text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4">
+                                Редактировать
+                            </a>
 
-                        <form method="POST" action="">
-                            @csrf
-                            @method('DELETE')
+                            <form method="POST" action="">
+                                @csrf
+                                @method('DELETE')
 
-                            <button
-                                type="submit"
-                                class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700"
-                                onclick="return confirm('Удалить клиента?')"
-                            >
-                                Удалить
-                            </button>
-                        </form>
+                                <button
+                                    type="submit"
+                                    class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700"
+                                    onclick="return confirm('Удалить клиента?')"
+                                >
+                                    Удалить
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-
+                @endcan
             </div>
         </div>
     </div>

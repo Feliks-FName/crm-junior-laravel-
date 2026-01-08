@@ -5,10 +5,12 @@
                 Клиенты
             </h2>
 
-            <a href="{{ route('clients.create') }}"
-               class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700 transition">
-                + Добавить клиента
-            </a>
+            @can('create')
+                <a href="{{ route('clients.create') }}"
+                   class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm hover:bg-indigo-700 transition">
+                    + Добавить клиента
+                </a>
+            @endcan
         </div>
     </x-slot>
 
@@ -54,11 +56,12 @@
                                    class="text-indigo-600 hover:underline text-sm">
                                     Смотреть
                                 </a>
-
-                                <a href="{{ route('clients.edit', $client->id) }}"
-                                   class="text-gray-600 hover:underline text-sm">
-                                    Редактировать
-                                </a>
+                                @can('update', $client)
+                                    <a href="{{ route('clients.edit', $client->id) }}"
+                                       class="text-gray-600 hover:underline text-sm">
+                                        Редактировать
+                                    </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

@@ -47,7 +47,7 @@
 
                         @foreach($statuses as $status)
                             <option
-                                value="{{ $status->id }}" {{ $deal->status->id === $status->id ? 'selected' : '' }}>{{ $status->code }}</option>
+                                value="{{ $status->id }}" {{ $deal->status->id === $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
                         @endforeach
                     </select>
 
